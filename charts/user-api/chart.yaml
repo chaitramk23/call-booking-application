@@ -1,5 +1,0 @@
-apiVersion: v2
-name: user-api
-description: Helm chart for user api
-version: 0.1.0
-appVersion: "1.0"
