@@ -3,3 +3,4 @@ name: user-api
 description: User API Helm chart for Call Booking Application
 version: 0.1.0
 appVersion: "1.0.0"
+
