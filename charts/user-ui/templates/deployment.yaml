@@ -14,6 +14,8 @@ spec:
       labels:
         app: {{ include "user-ui.name" . }}
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: user-ui
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
