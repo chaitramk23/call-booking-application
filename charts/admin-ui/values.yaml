@@ -4,12 +4,12 @@ image:
   repository: chaitramk23/admin-ui
   tag: latest
   pullPolicy: IfNotPresent
+  pullSecret: regcred
 
-service:
-  type: ClusterIP
-  port: 80
-
-resources: {}
-nodeSelector: {}
-tolerations: []
-affinity: {}
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
