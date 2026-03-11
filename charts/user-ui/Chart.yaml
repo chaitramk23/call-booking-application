@@ -1,0 +1,5 @@
+apiVersion: v2
+name: user-ui
+description: User UI Helm chart for Call Booking Application
+version: 0.1.0
+appVersion: "1.0.0"
