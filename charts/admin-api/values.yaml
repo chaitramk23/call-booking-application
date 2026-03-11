@@ -13,3 +13,14 @@ resources:
   requests:
     cpu: 250m
     memory: 256Mi
+
+# Add this section for environment variables
+env:
+  - name: DB_URL
+    value: "mongodb://mongo:27017/admin-api"   # mongo = Kubernetes service name
+  - name: DB_USER
+    value: ""   # put username if MongoDB auth enabled
+  - name: DB_PASS
+    value: ""   # put password if MongoDB auth enabled
+  - name: PORT
+    value: "1004"
