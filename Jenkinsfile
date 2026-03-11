@@ -12,6 +12,8 @@ spec:
   containers:
   - name: jnlp
     image: chaitramk23/jenkins-agent-eks:latest
+    command:
+    - cat
     tty: true
 """
         }
@@ -25,7 +27,9 @@ spec:
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/chaitramk23/call-booking-application.git'
+                container('jnlp') {
+                    git branch: 'main', url: 'https://github.com/chaitramk23/call-booking-application.git'
+                }
             }
         }
 
@@ -64,7 +68,9 @@ spec:
 
     post {
         always {
-            echo "Pipeline finished. Dynamic pod will be deleted automatically."
+            container('jnlp') {
+                echo "Pipeline finished. Dynamic pod will be deleted automatically."
+            }
         }
     }
 }
