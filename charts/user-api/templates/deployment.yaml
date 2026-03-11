@@ -22,5 +22,8 @@ spec:
             - containerPort: 80
           resources:
 {{ toYaml .Values.resources | indent 12 }}
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongo:27017/call-booking-db"
       imagePullSecrets:
         - name: {{ .Values.image.pullSecret }}
