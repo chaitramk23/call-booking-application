@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "user-ui.fullname" . }}
+  name: {{ include "admin-ui.fullname" . }}
   labels:
-    app: {{ include "user-ui.name" . }}
+    app: {{ include "admin-ui.name" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "user-ui.name" . }}
+      app: {{ include "admin-ui.name" . }}
   template:
     metadata:
       labels:
-        app: {{ include "user-ui.name" . }}
+        app: {{ include "admin-ui.name" . }}
     spec:
       containers:
-        - name: user-ui
+        - name: admin-ui
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
