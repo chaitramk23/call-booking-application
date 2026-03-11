@@ -8,6 +8,7 @@ metadata:
   labels:
     k8s-agent: dynamic
 spec:
+  serviceAccountName: jenkins-sa
   containers:
   - name: jnlp
     image: chaitramk23/jenkins-agent-eks:latest
