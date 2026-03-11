@@ -11,10 +11,26 @@ spec:
   serviceAccountName: jenkins-sa
   containers:
   - name: jnlp
-    image: chaitramk23/jenkins-agent-eks:latest
-    command:
-    - cat
+    image: jenkins/inbound-agent:latest
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
     tty: true
+  - name: k8s-agent
+    image: lachlanevenson/k8s-helm:latest
+    command:
+      - cat
+    tty: true
+    volumeMounts:
+      - name: workspace-volume
+        mountPath: /home/jenkins/agent
+  volumes:
+    - name: workspace-volume
+      emptyDir: {}
 """
         }
     }
@@ -27,7 +43,7 @@ spec:
     stages {
         stage('Checkout') {
             steps {
-                container('jnlp') {
+                container('k8s-agent') {
                     git branch: 'main', url: 'https://github.com/chaitramk23/call-booking-application.git'
                 }
             }
@@ -35,32 +51,32 @@ spec:
 
         stage('Deploy Admin UI') {
             steps {
-                container('jnlp') {
-                    sh "helm upgrade --install admin-ui ./charts/admin-ui -n $UI_NAMESPACE --create-namespace"
+                container('k8s-agent') {
+                    sh "helm upgrade --install admin-ui ./charts/admin-ui -n \$UI_NAMESPACE --create-namespace"
                 }
             }
         }
 
         stage('Deploy User UI') {
             steps {
-                container('jnlp') {
-                    sh "helm upgrade --install user-ui ./charts/user-ui -n $UI_NAMESPACE --create-namespace"
+                container('k8s-agent') {
+                    sh "helm upgrade --install user-ui ./charts/user-ui -n \$UI_NAMESPACE --create-namespace"
                 }
             }
         }
 
         stage('Deploy Admin API') {
             steps {
-                container('jnlp') {
-                    sh "helm upgrade --install admin-api ./charts/admin-api -n $API_NAMESPACE --create-namespace"
+                container('k8s-agent') {
+                    sh "helm upgrade --install admin-api ./charts/admin-api -n \$API_NAMESPACE --create-namespace"
                 }
             }
         }
 
         stage('Deploy User API') {
             steps {
-                container('jnlp') {
-                    sh "helm upgrade --install user-api ./charts/user-api -n $API_NAMESPACE --create-namespace"
+                container('k8s-agent') {
+                    sh "helm upgrade --install user-api ./charts/user-api -n \$API_NAMESPACE --create-namespace"
                 }
             }
         }
@@ -68,9 +84,7 @@ spec:
 
     post {
         always {
-            container('jnlp') {
-                echo "Pipeline finished. Dynamic pod will be deleted automatically."
-            }
+            echo "Pipeline finished. Dynamic pod will be deleted automatically."
         }
     }
 }
