@@ -14,8 +14,6 @@ spec:
       labels:
         app: {{ include "admin-ui.name" . }}
     spec:
-      imagePullSecrets:
-        - name: regcred
       containers:
         - name: admin-ui
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -23,3 +21,5 @@ spec:
           ports:
             - containerPort: 80
           resources: {{ .Values.resources | toYaml }}
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret }}
