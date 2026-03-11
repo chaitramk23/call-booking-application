@@ -20,6 +20,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 80
-          resources: {{ .Values.resources | toYaml }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
       imagePullSecrets:
         - name: {{ .Values.image.pullSecret }}
