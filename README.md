@@ -8,21 +8,18 @@
 
 ```text
 .
-├── Docs
-│   ├── 1.authenticate-ecr.md
-│   ├── 2. Steps_to_create_eks_cluster.md
-│   └── 3. authenticate_eks_cluster.md
-├── Jenkinsfile
+call-booking-application/
 ├── README.md
-├── admin-api
-├── admin-ui
-├── charts
-├── commands.md
+├── PROJECT_STRUCTURE.md
+├── Jenkinsfile
 ├── docker-compose.yaml
-├── k8s
-├── kubernetes
-├── user-api
-└── user-ui
+├── admin-api/
+├── admin-ui/
+├── user-api/
+├── user-ui/
+├── charts/
+├── kubernetes/
+└── Docs/  
 ```
 
 
