@@ -3,6 +3,30 @@
 
 
 ![ma](https://user-images.githubusercontent.com/29688323/179655923-e5d9ed72-176e-4956-897c-c1bb434d5c63.jpg)
+
+## Project Directory Structure
+
+```text
+.
+├── Docs
+│   ├── 1.authenticate-ecr.md
+│   ├── 2. Steps_to_create_eks_cluster.md
+│   └── 3. authenticate_eks_cluster.md
+├── Jenkinsfile
+├── README.md
+├── admin-api
+├── admin-ui
+├── charts
+├── commands.md
+├── docker-compose.yaml
+├── k8s
+├── kubernetes
+├── user-api
+└── user-ui
+```
+
+
+
 pipeline {
     agent any
 
